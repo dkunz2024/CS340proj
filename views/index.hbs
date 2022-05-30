@@ -3,34 +3,55 @@
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
 
 
+<body>
 {{!-- Create a table --}}
-<table>
+    <table>
 
-    {{!-- Header section --}}
-    <thead>
+        {{!-- Header section --}}
+        <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.customer_name}}</td>
+                <td>{{this.total_dropoff}}</td>
+                <td>{{this.total_recycle}}</td>
+            </tr>
             {{/each}}
-        </tr>
-    </thead>
+        </tbody>
+    </table>
 
-    {{!-- Body section --}}
-    <tbody>
+    
+    <!-- /views/index.hbs -->
+    <h2>Adding Data using an HTML form</h2>
+    <p>To add a new person, please enter their information below nad click `Submit`!</p>
+    <form id="add-customer-form" method="POST" action="/add-customer-form">
+        <label for="input-name">Name: </label>
+        <input type="text" name="input-name" id="input-name">
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        {{#each data}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.customer_name}}</td>
-            <td>{{this.total_dropoff}}</td>
-            <td>{{this.total_recycle}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+        <label for="input-total-dropoff">Total Dropoff: </label>
+        <input type="number" name="input-total-dropoff" id="input-total-dropoff">
+
+        <label for="input-total-recycle">Total Recycle: </label>
+        <input type="number" name="input-total-recycle" id="input-total-recycle">
+
+        <input type="submit">
+    </form>
+
+
+</body>
