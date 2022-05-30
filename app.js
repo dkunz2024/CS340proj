@@ -28,14 +28,19 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
     ROUTES
 */
 app.get('/', function(req, res)
-    {  
-        let query1 = "SELECT * FROM customers;";               // Define our query
+{
+    // Declare Query 1
+    let query1;
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query                              // requesting the web site.
+    // If there is no query string, we just perform a basic SELECT
+    query1 = `SELECT * FROM customers WHERE customer_name LIKE "${req.query.name}%"`;
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Run the second quer
+            res.render('index', {data: rows});
+        })
+});                                                       // received back from the query                              // requesting the web site.
 
 // app.js
 
