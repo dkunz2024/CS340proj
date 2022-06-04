@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Recycling Home Page</title>
+
+    {{!-- <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@100&display=swap" rel="stylesheet"> --}}
+    {{!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous"> --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
+    <script src="index.js" charset="utf-8" defer></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>
+
+    <header>
+      <div class="header-image-container">
+        <img id = "img-cont" src="logo.png" alt="Site logo">
+        <h1 class="site-title"><a href="index.html">Recyclopse</a></h1>
+    
+        <div class="nav-links">
+          <a class="navbar-items" href = "index.html">About Us</a>
+          <a class="navbar-items" href = "customers.html">Customers</a>
+          <a class="navbar-items" href = "dropOffOrders.html">Drop-Off Orders</a>
+          <a class="navbar-items" href = "salesOrders.html">Materials Orders</a>
+          <a class="navbar-items" href = "wasteOrders.html">Waste Shipments</a>
+          <a class="navbar-items" href = "wasteLocations.html">Waste Locations</a>
+        </div>
+      </div>
+    </header>
+    
+    <main class="content">
+
+      <aside class="filter-container">
+
+        <h2>Filters</h2>
+
+        <div class="filter-input-container">
+          <label for="filter-text" class="filter-input-label">Customer ID</label>
+          <div class="filter-input-element">
+            <input type="number" name="filter-text" id="filter-text" class="filter-input">
+          </div>
+        </div>
+
+        <div class="filter-input-container">
+          <label for="filter-text" class="filter-input-label">Name</label>
+          <div class="filter-input-element">
+            <input type="text" name="filter-text" id="filter-text" class="filter-input">
+          </div>
+        </div>
+
+        <div class="filter-input-container">
+          <label for="filter-text" class="filter-input-label">Drop-Off</label>
+          <div class="filter-input-element">
+            <input type="number" name="filter-text" id="filter-text" class="filter-input">
+          </div>
+        </div>
+
+        <div class="filter-input-container">
+          <label for="filter-text" class="filter-input-label">Recyclable Drop-Off</label>
+          <div class="filter-input-element">
+            <input type="number" name="filter-text" id="filter-text" class="filter-input">
+          </div>
+        </div>
+
+        <button id="filter-update-button" class="action-button">Search</button>
+
+      </aside>
+
+        <div class ="table-div">
+            {{!-- Create a table --}}
+            <table>
+
+                {{!-- Header section --}}
+                <thead>
+
+                    {{!-- For just the first row, we print each key of the row object as a header cell so we
+                    know what each column means when the page renders --}}
+                    <tr>
+                        {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                        {{/each}}
+                        <th>delete</th>
+                    </tr>
+                </thead>
+
+                {{!-- Body section --}}
+                <tbody>
+
+                    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.customer_name}}</td>
+                        <td>{{this.total_dropoff}}</td>
+                        <td>{{this.total_recycle}}</td>
+                        <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{!-- <script src = "./js/delete_customers.js"></script> --}}
+
+        
+        <!-- /views/index.hbs -->
+        <aside class="filter-container addingdata">
+            <h2>Inserting Data</h2>
+            <p>To add a new person, please enter their information below nad click `Submit`!</p>
+            <form id="add-customer-form" method="POST" action="/add-customer-form">
+                <label for="input-name">Name: </label>
+                <input type="text" name="input-name" id="input-name">
+
+                <label for="input-total-dropoff">Total Dropoff: </label>
+                <input type="number" name="input-total-dropoff" id="input-total-dropoff">
+
+                <label for="input-total-recycle">Total Recycle: </label>
+                <input type="number" name="input-total-recycle" id="input-total-recycle">
+
+                <input type="submit">
+            </form>
+        </aside>
+
+        <aside class="filter-container">
+        <h2>Search</h2>
+        <p>Search fist name using the field below.</p>
+        <form id="search-customer-html" method='GET' action='/'>
+            <label for="input-name">Search by Name: </label>
+            <input type="text" name="name" id="input-name-html-search">
+            
+            <input type="submit">
+            <a href='/'><button>Reset</button></a>
+        </form>
+        </aside>
+
+    </main>
+
+    <button type="button" id="sell-something-button">Insert</button>
+
+    <div id="modal-backdrop" class="hidden"></div>
+    <div id="sell-something-modal" class="hidden">
+      <div class="modal-dialog">
+
+        <div class="modal-header">
+          <h3>Add Customer Information</h3>
+          <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="post-input-element insert-element">
+            <label for="post-first-input">Customer Name</label>
+            <input type="text" id="post-first-input"></input>
+          </div>
+
+          <div class="post-input-element insert-element">
+            <label for="post-third-input">Total Drop-Off</label>
+            <input type="number" id="post-third-input">
+          </div>
+
+          <div class="post-input-element insert-element">
+            <label for="post-fourth-input">Total Recycled Drop-Off</label>
+            <input type="number" id="post-fourth-input">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
+          <button type="button" id="modal-accept" class="action-button">Add Customer</button>
+        </div>
+
+      </div>
+    </div>
+
+    <button type="button" id="update-something-button">Update</button>
+
+    <div id="update-modal-backdrop" class="hidden"></div>
+    <div id="update-something-modal" class="hidden">
+      <div class="modal-dialog">
+
+        <div class="modal-header">
+          <h3>Update Customer Information</h3>
+          <button type="button" id="update-modal-close" class="modal-hide-button">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="post-input-element update-element">
+            <label for="post-first-input">Customer ID</label>
+            <input type="number" id="post-first-input"></input>
+          </div>
+
+          <h3>Attributes to Update:</h3>
+
+          <div class="post-input-element update-element">
+            <label for="post-third-input">Customer Name</label>
+            <input type="text" id="post-third-input">
+          </div>
+
+          <div class="post-input-element update-element">
+            <label for="post-third-input">Total Drop-Off</label>
+            <input type="number" id="post-third-input">
+          </div>
+
+          <div class="post-input-element update-element">
+            <label for="post-fourth-input">Total Recycled Drop-Off</label>
+            <input type="number" id="post-fourth-input">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="update-modal-cancel" class="modal-hide-button action-button">Cancel</button>
+          <button type="button" id="update-modal-accept" class="action-button">Add Customer</button>
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>
