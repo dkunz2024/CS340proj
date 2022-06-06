@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 var path = require('path');
 app.use(express.static('public'))
 
-PORT = 8994;                 // Set a port number at the top so it's easy to change in the future
+PORT = 8995;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
 var db = require('./database/db-connector');
@@ -325,6 +325,40 @@ app.delete('/delete-customer-ajax', function(req,res,next){
               }
   })});
 
+app.put('/update-customer-form-ajax', function(req,res,next){
+    let data = req.body;
+
+    let total_recycle = parseInt(data.total_recycle);
+    let name = parseInt(data.customer_name);
+
+    let queryUpdateRecycle = `UPDATE customers SET total_recycle = ? WHERE customers.customer_name = ?`;
+    let selectName = `SELECT * FROM customers WHERE id = ?`
+
+        // Run the 1st query
+        db.pool.query(queryUpdateRecycle, [total_recycle, name], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectName, [total_recycle], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
 
 /*
     LISTENER

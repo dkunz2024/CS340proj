@@ -116,6 +116,36 @@
         </form>
         </aside>
 
+        {{!-- THIRD ASIDE FOR UPDATING --}}
+        <aside class="filter-container">
+          <h2>Updating cutomers total recycle</h2>
+            <p>To update a specific user's total_recycle, select their name from the drop-down menu on the top and type their new total_recycle on the bottom.</p>
+            <form id="update-customer-form-ajax">
+
+                <label for="input-name">Name: </label>
+                <select name="input-name" id="mySelect">
+                    <option value="test">Select a Person</option>
+                    {{#each data}}
+                    <option value="{{this.id}}">{{this.customer_name}}</option>
+                    {{/each}}
+                </select>
+
+                <br></br>
+                <label for="input-recycle-update">Recycle: </label>
+                <div class="filter-input-container">
+                  {{!-- <label for="input-id-update"></label> --}}
+                  <div class="filter-input-element">
+                    <input type="number" name="input-recycle" id="input-recycle-update">
+                  </div>
+                </div> 
+                <input class="submit-button action-button" type="submit">
+            </form>
+
+            <script src="updateCustomer.js"></script>
+
+          {{!-- </form> --}}
+        </aside>
+
     </main>
   </body>
 </html>
