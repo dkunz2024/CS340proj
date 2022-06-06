@@ -107,7 +107,7 @@ app.post('/add-customer-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/');
+            res.redirect('/Customers');
         }
     })
 });
@@ -294,15 +294,15 @@ app.post('/add-waste-location-form', function(req, res){
 
 
 //DELETE FROM CUSTOMERS
-app.delete('/delete-person-ajax/', function(req,res,next){
+app.delete('/delete-customer-ajax', function(req,res,next){
     let data = req.body;
-    let personID = parseInt(data.id);
-    let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
-    let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+    let customer_id = parseInt(data.id);
+    let deleteBsg_Cert_People = `DELETE FROM customers WHERE id = ?`;
+    let deleteBsg_People= `DELETE FROM customers WHERE id = ?`;
   
   
           // Run the 1st query
-          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+          db.pool.query(deleteBsg_Cert_People, [customer_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -313,7 +313,7 @@ app.delete('/delete-person-ajax/', function(req,res,next){
               else
               {
                   // Run the second query
-                  db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+                  db.pool.query(deleteBsg_People, [customer_id], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);

@@ -17,7 +17,7 @@
     {{!-- create a header that allows us to navigate to every other page --}}
     <header>
       <div class="header-image-container">
-        <h1 class="site-title"><a href="?name=">Recyclopse</a></h1>
+        <h1 class="site-title"><a href="/about">Recyclopse</a></h1>
     
         <div class="nav-links">
           <a class="navbar-items" href = "/about">About Us</a>
@@ -31,7 +31,7 @@
     </header>
     
     <main class="content">
-        <div class ="table-div">
+        <div id="table-div">
             {{!-- Create a table --}}
             <table>
 
@@ -46,7 +46,6 @@
                             {{@key}}
                         </th>
                         {{/each}}
-                        <th>delete</th>
                     </tr>
                 </thead>
 
@@ -60,7 +59,6 @@
                         <td>{{this.dropoff_id}}</td>
                         <td>{{this.weight}}</td>
                         <td>{{this.recyclable_weight}}</td>
-                        <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
                     </tr>
                     {{/each}}
                 </tbody>

@@ -16,7 +16,7 @@
 
     <header>
       <div class="header-image-container">
-        <h1 class="site-title"><a href="?name=">Recyclopse</a></h1>
+        <h1 class="site-title"><a href="/about">Recyclopse</a></h1>
     
         <div class="nav-links">
           <a class="navbar-items" href = "/about">About Us</a>
@@ -30,90 +30,71 @@
     </header>
     
     <main class="content">
-        <div class ="table-div">
-            {{!-- Create a table --}}
-            <table>
-
-                {{!-- Header section --}}
-                <thead>
-
-                    {{!-- For just the first row, we print each key of the row object as a header cell so we
-                    know what each column means when the page renders --}}
-                    <tr>
-                        {{#each data.[0]}}
-                        <th>
-                            {{@key}}
-                        </th>
-                        {{/each}}
-                        <th>delete</th>
-                    </tr>
-                </thead>
-
-                {{!-- Body section --}}
-                <tbody>
-
-                    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-                    {{#each data}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>{{this.customer_name}}</td>
-                        <td>{{this.total_dropoff}}</td>
-                        <td>{{this.total_recycle}}</td>
-                        <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        {{!-- <script src = "../public/js/delete_customers.js"></script> --}}
-
-        
-        
-        <!-- /views/index.hbs -->
-        <aside class="filter-container addingdata">
-            <h2>Insert</h2>
-            <form id="add-customer-form" method="POST" action="/add-customer-form">
-
-              <div class="filter-input-container">
-                  <label class="filter-input-label" for="input-name">Name</label>
-                  <div class="filter-input-element">
-                  <input type="text" name="input-name" id="input-name">
-                  </div>
-              </div>
-            
-              <div class="filter-input-container">
-                  <label class="filter-input-label" for="input-total-dropoff">Total Dropoff</label>
-                  <div class="filter-input-element">
-                  <input type="number" name="input-total-dropoff" id="input-total-dropoff">
-                  </div>
-              </div>    
-
-            <div class="filter-input-container">
-                <label class="filter-input-label" or="input-total-recycle">Total Recycle</label>
-                <div class="filter-input-element">
-                <input type="number" name="input-total-recycle" id="input-total-recycle">
-                </div>
-            </div>
-
-                <input class="submit-button action-button" type="submit">
-            </form>
-        </aside>
-
-        <aside class="filter-container">
-        <h2>Search</h2>
-        <form id="search-customer-html" method='GET' action='/'>
-          <div class="filter-input-container">
-              <label class="filter-input-label" for="input-name">Name </label>
-              <div class="filter-input-element">
-              <input type="text" name="name" id="input-name-html-search">
-              </div>
-          </div>
-            
-            <input class="submit-button action-button" type="submit">
-            <a href='/'><button class="submit-button action-button">Reset</button></a>
-        </form>
-        </aside>
-
-    </main>
+      <div id="about-page">
+          <h2 class="welcome-head">Welcome!</h2>    
+          <div class="welcome-left-h3">About Us</div>
+          <p class="middle-par">
+              Recyclopse is a recycling company that helps make recycling beneficial for everybody!
+              We take in recyclable materials from companies, sort the recycling, 
+              sell the recycled materials, and transport any excess waste.
+              <br />
+          </p>
+          <div class="welcome-left-h3">What can I recycle?</div>
+          <p class="middle-par">
+              The three categories of recyclables are 
+              <b>Bottles and Cans, Paper, and Cardboard</b>. 
+              Anything that doesn’t belong in these bins should be placed in 
+              the trash instead. See the detailed list below:
+              <br />
+          </p>
+          <p class="welcome-left">
+              <u>Bottles and Cans:</u>
+              <ul class = "welcome-left-ul">
+                  <li>Glass bottles and jars</li>
+                  <li>Aluminum and Tin Cans</li>
+                  <li>Plastic bottles (containers with narrow neck) and jugs (bottles with a handle)</li>
+              </ul>
+          </p>
+          <p class="welcome-left-2">
+            <b>Note:</b>
+              Bottles and Cans should be emptied, washed, and dried. Caps should 
+              be removed whenever possible. They must have contained food or beverages. 
+              Glass containers from labs are not accepted. <br/>
+              <br/>
+        </p>
+          <p class="welcome-left">
+              <u>Paper:</u>
+              <ul class="welcome-left-ul">
+                  <li>Office paper, newspapers, junk mail and greeting cards, magazines</li>
+                  <li>Paperback books, phone books, and notebooks (metal binding is accepted!)</li>
+                  <li>Paper bags and packing paper</li>
+                  <li>Paperboard (heavier, non-corrugated paper)</li>
+              </ul>
+          </p>
+          <p class="welcome-left-2">
+              <b>Not acceptable Paper products:</b>
+              <ul class="welcome-left-ul-2">
+              <li>Hardback books</li>
+              <li>Cartons and aseptic containers</li>
+              <li>Butcher paper</li>
+              <li>Egg cartons</li>
+              <li>Paper cups and plates</li>
+              <li>Napkins and paper towels</li>
+              <li>Note: Paper should be greater than 2x2 inches in size, otherwise it should be 
+                   thrown away or composted if it is 100% paper. </li>
+              </ul>
+          </p>
+          <p class="welcome-left">
+              <u>Cardboard:</u>
+              <p class="welcome-left-cb">
+                  Only <b>Flattened, corrugated</b> cardboard is accepted. Contents must be emptied 
+                  and the cardboard must not be contaminated with food and oil. Must be placed 
+                  in a marked container <b>outside</b> your building, located near the dumpsters.
+  
+  
+              </p>
+          </p>
+      </div>
+  </main>
   </body>
 </html>

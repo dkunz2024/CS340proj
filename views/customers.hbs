@@ -6,7 +6,8 @@
 
     {{!-- add scipts --}}
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     {{!-- add CSS styling --}}
     <link rel="stylesheet" href="style.css">
@@ -17,7 +18,7 @@
     {{!-- create a header that allows us to navigate to every other page --}}
     <header>
       <div class="header-image-container">
-        <h1 class="site-title"><a href="?name=">Recyclopse</a></h1>
+        <h1 class="site-title"><a href="/about">Recyclopse</a></h1>
     
         <div class="nav-links">
           <a class="navbar-items" href = "/about">About Us</a>
@@ -31,41 +32,43 @@
     </header>
     
     <main class="content">
-        <div class ="table-div">
-            {{!-- Create a table --}}
-            <table>
+      {{!-- Create a table --}}
+      <table id = "table-div">
 
-                {{!-- Header section --}}
-                <thead>
+          {{!-- Header section --}}
+          <thead>
 
-                    {{!-- For just the first row, we print each key of the row object as a header cell so we
-                    know what each column means when the page renders --}}
-                    <tr>
-                        {{#each data.[0]}}
-                        <th>
-                            {{@key}}
-                        </th>
-                        {{/each}}
-                        <th>delete</th>
-                    </tr>
-                </thead>
+              {{!-- For just the first row, we print each key of the row object as a header cell so we
+              know what each column means when the page renders --}}
+              <tr>
+                  {{#each data.[0]}}
+                  <th>
+                      {{@key}}
+                  </th>
+                  {{/each}}
+                  <th>delete</th>
+              </tr>
+          </thead>
 
-                {{!-- Body section --}}
-                <tbody>
+          {{!-- Body section --}}
+          <tbody>
 
-                    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-                    {{#each data}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>{{this.customer_name}}</td>
-                        <td>{{this.total_dropoff}}</td>
-                        <td>{{this.total_recycle}}</td>
-                        <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
+              {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+              {{#each data}}
+              <tr data-value={{this.id}}>
+                  <td>{{this.id}}</td>
+                  <td>{{this.customer_name}}</td>
+                  <td>{{this.total_dropoff}}</td>
+                  <td>{{this.total_recycle}}</td>
+                  <td><button onclick="deleteCustomer({{this.id}})">Delete</button></td>
+              </tr>
+              {{/each}}
+          </tbody>
+      </table>
+      {{!-- <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script> --}}
+      {{!-- <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script> --}}
+      <script language="JavaScript" type="text/javascript" src="deleteCustomer.js"></script>
+     
 
         {{!-- FIRST ASIDE FOR INSERTING DATA --}}
         <aside class="filter-container addingdata">
