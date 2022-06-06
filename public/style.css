@@ -5,6 +5,7 @@ body{
   
   .content{
     display:flex;
+    flex-direction: column;
   }
   
   header {
@@ -37,7 +38,7 @@ body{
    font-weight: 500;
    position: absolute;
    top: 23px;
-   left: 105px;
+   left: 10px;
   }
   
   .navbar-items{
@@ -684,13 +685,14 @@ body{
   }
   
   .filter-container {
-  display: inline-block;
+  display: flexbox;
   min-width: 200px;
   max-width: 250px;
   margin: 10px 10px auto 10px;
   padding: 20px;
   border-radius: 3px;
   background-color: #efefef;
+  flex-direction: column;
   }
   
   .filter-container h2 {
@@ -753,9 +755,12 @@ body{
 .table-div{
   padding: 20px;
   margin: 10px;
+  position: fixed;
+  left: 300px;
+  top: 90px;
 }
 
 .addingdata{
-  display: block;
-  content: \a;
+  display: flexbox;
+  width: 100%;
 }

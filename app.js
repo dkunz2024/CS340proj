@@ -41,6 +41,7 @@ app.get('/', function(req, res)
 {
     // Declare Query 1
     let query1;
+    query1 = `SELECT * FROM customers`;
 
     // If there is no query string, we just perform a basic SELECT
     if (req.query.name != "")
@@ -94,6 +95,37 @@ app.post('/add-customer-form', function(req, res){
         }
     })
 })
+
+app.delete('/delete-person-ajax/', function(req,res,next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
+    let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
 
 
 /*
