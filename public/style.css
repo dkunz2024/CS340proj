@@ -46,8 +46,8 @@ body{
     text-decoration: none;
     padding: 10px;
     padding-top: 40px;
-    padding-right: 20px;
-    font-size: 130%;
+    padding-right: 10px;
+    font-size: 100%;
   }
   
   .navbar-items:hover{

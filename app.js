@@ -266,6 +266,25 @@ app.get('/wasteLocations', function(req, res)
         })
 });   
 
+
+//waste locations page
+app.get('/wasteShipments', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+    query1 = `SELECT * FROM waste_shipments`; 
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.name)
+        query1 = `SELECT * FROM waste_shipments WHERE customer_name LIKE "${req.query.name}%"`;
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+    
+        // Run the second quer
+            res.render('wasteShipments', {data: rows});
+        })
+});  
+
 //ADD WASTE LOCATION
 app.post('/add-waste-location-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
@@ -291,7 +310,6 @@ app.post('/add-waste-location-form', function(req, res){
         }
     })
 });
-
 
 //DELETE FROM CUSTOMERS
 app.delete('/delete-customer-ajax', function(req,res,next){

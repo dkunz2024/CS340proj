@@ -95,6 +95,7 @@ INSERT INTO waste_location VALUES (1, 'Big Bulky Bens', 700), (2, 'Wittle Waste 
 /*!40000 ALTER TABLE waste_location ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 DROP TABLE IF EXISTS waste_orders;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -116,12 +117,30 @@ INSERT INTO waste_orders VALUES (1, 1, 1000, 1), (2, 2, 1110000, 1), (3, 2, 111,
 /*!40000 ALTER TABLE waste_orders ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS waste_shipments;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE waste_shipments(
+    waste_id2 INT NOT NULL ,
+    location_id2 INT NOT NULL,
+    FOREIGN KEY (waste_id2) REFERENCES waste_orders(waste_id),
+    FOREIGN KEY (location_id2) REFERENCES waste_location(location_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES waste_shipments WRITE;
+/*!40000 ALTER TABLE waste_shipments DISABLE KEYS */;
+INSERT INTO waste_shipments VALUES (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6);
+/*!40000 ALTER TABLE waste_shipments ENABLE KEYS */;
+UNLOCK TABLES;
+
 --Test table making
 DESCRIBE customers; 
 DESCRIBE drop_off_orders; 
 DESCRIBE sales_orders; 
 DESCRIBE waste_orders; 
 DESCRIBE waste_location; 
+DESCRIBE waste_shipments; 
 
 --Inserting Temporary Data
 -- INSERT INTO customers(id, customer_name, total_dropoff, total_recycle) VALUES (1, 'UHDS', 1234567, 123456), (2, 'Barnes & Nobles', 8989, 8900), (3, 'Starbucks', 987654, 98765), (4, 'Nintendo', 5, 0);
