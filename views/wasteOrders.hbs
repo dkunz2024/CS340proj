@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>Recycling Home Page</title>
-
+    
     {{!-- add scipts --}}
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>  
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    
     {{!-- add CSS styling --}}
     <link rel="stylesheet" href="style.css">
 
   </head>
   <body>
 
+    {{!-- create a header that allows us to navigate to every other page --}}
     <header>
       <div class="header-image-container">
         <h1 class="site-title"><a href="?name=">Recyclopse</a></h1>
@@ -55,43 +56,40 @@
                     {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
                     {{#each data}}
                     <tr>
-                        <td>{{this.id}}</td>
-                        <td>{{this.customer_name}}</td>
-                        <td>{{this.total_dropoff}}</td>
-                        <td>{{this.total_recycle}}</td>
+                        <td>{{this.waste_id}}</td>
+                        <td>{{this.dropoff_id2}}</td>
+                        <td>{{this.weight}}</td>
+                        <td>{{this.location_id2}}</td>
                         <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
-        {{!-- <script src = "../public/js/delete_customers.js"></script> --}}
 
-        
-        
-        <!-- /views/index.hbs -->
+        {{!-- FIRST ASIDE FOR INSERTING DATA --}}
         <aside class="filter-container addingdata">
             <h2>Insert</h2>
             <form id="add-customer-form" method="POST" action="/add-customer-form">
 
               <div class="filter-input-container">
-                  <label class="filter-input-label" for="input-name">Name</label>
+                  <label class="filter-input-label" for="input-dropoff-id">Dropoff ID</label>
                   <div class="filter-input-element">
-                  <input type="text" name="input-name" id="input-name">
+                  <input type="text" name="input-dropoff-id" id="input-dropoff-id">
                   </div>
               </div>
             
               <div class="filter-input-container">
-                  <label class="filter-input-label" for="input-total-dropoff">Total Dropoff</label>
+                  <label class="filter-input-label" for="input-weight">Weight</label>
                   <div class="filter-input-element">
-                  <input type="number" name="input-total-dropoff" id="input-total-dropoff">
+                  <input type="number" name="input-weight" id="input-weight">
                   </div>
               </div>    
 
             <div class="filter-input-container">
-                <label class="filter-input-label" or="input-total-recycle">Total Recycle</label>
+                <label class="filter-input-label" or="input-r-weight">Recycable Weight</label>
                 <div class="filter-input-element">
-                <input type="number" name="input-total-recycle" id="input-total-recycle">
+                <input type="number" name="input-r-weight" id="input-r-weight">
                 </div>
             </div>
 
@@ -99,6 +97,7 @@
             </form>
         </aside>
 
+        {{!-- SECOND ASIDE FOR SEARCHING  --}}
         <aside class="filter-container">
         <h2>Search</h2>
         <form id="search-customer-html" method='GET' action='/'>

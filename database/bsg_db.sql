@@ -49,7 +49,7 @@ CREATE TABLE drop_off_orders(
 
 LOCK TABLES drop_off_orders WRITE;
 /*!40000 ALTER TABLE drop_off_orders DISABLE KEYS */;
-INSERT INTO drop_off_orders VALUES (1, 1, 4000, 3000), (1, 2, 1230567, 120456), (2, 3, 4000, 4000), (2, 4, 4989, 4900), (3, 5, 987654, 98765), (4, 6, 5, 0);
+INSERT INTO drop_off_orders VALUES (0, 1, 4000, 3000), (1, 2, 1230567, 120456), (2, 3, 4000, 4000), (2, 4, 4989, 4900), (3, 5, 987654, 98765), (4, 6, 5, 0);
 /*!40000 ALTER TABLE drop_off_orders ENABLE KEYS */;
 UNLOCK TABLES;
 
