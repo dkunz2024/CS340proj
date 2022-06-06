@@ -69,7 +69,7 @@
         {{!-- FIRST ASIDE FOR INSERTING DATA --}}
         <aside class="filter-container addingdata">
             <h2>Insert</h2>
-            <form id="add-customer-form" method="POST" action="/add-customer-form">
+            <form id="add-waste-location-form" method="POST" action="/add-waste-location-form">
 
               <div class="filter-input-container">
                   <label class="filter-input-label" for="input-name">Name</label>
@@ -79,39 +79,15 @@
               </div>
             
               <div class="filter-input-container">
-                  <label class="filter-input-label" for="input-total-dropoff">Total Dropoff</label>
+                  <label class="filter-input-label" for="input-cost">Cost</label>
                   <div class="filter-input-element">
-                  <input type="number" name="input-total-dropoff" id="input-total-dropoff">
+                  <input type="number" name="input-cost" id="input-cost">
                   </div>
               </div>    
-
-            <div class="filter-input-container">
-                <label class="filter-input-label" or="input-total-recycle">Total Recycle</label>
-                <div class="filter-input-element">
-                <input type="number" name="input-total-recycle" id="input-total-recycle">
-                </div>
-            </div>
 
                 <input class="submit-button action-button" type="submit">
             </form>
         </aside>
-
-        {{!-- SECOND ASIDE FOR SEARCHING  --}}
-        <aside class="filter-container">
-        <h2>Search</h2>
-        <form id="search-customer-html" method='GET' action='/'>
-          <div class="filter-input-container">
-              <label class="filter-input-label" for="input-name">Name </label>
-              <div class="filter-input-element">
-              <input type="text" name="name" id="input-name-html-search">
-              </div>
-          </div>
-            
-            <input class="submit-button action-button" type="submit">
-            <a href='/'><button class="submit-button action-button">Reset</button></a>
-        </form>
-        </aside>
-
     </main>
   </body>
 </html>

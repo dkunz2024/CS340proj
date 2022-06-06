@@ -183,7 +183,7 @@ app.post('/add-sales-orders-form', function(req, res){
     let data = req.body;
  
     // Create the query and run it on the database
-    query1 = `INSERT INTO sales_orders( id, weight, material) VALUES ('${data['input-id']}', ${data['input-weight']}, ${data['input-material']})`;
+    query1 = `INSERT INTO sales_orders( id, weight, material) VALUES ('${data['input-id']}', '${data['input-weight']}', '${data['input-material']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -202,6 +202,7 @@ app.post('/add-sales-orders-form', function(req, res){
         }
     })
 });
+
 
 //waste orders page
 app.get('/wasteOrders', function(req, res)
@@ -222,12 +223,12 @@ app.get('/wasteOrders', function(req, res)
 });   
 
 //ADD WASTE ORDER
-app.post('/add-waste-orders-form', function(req, res){
+app.post('/add-waste-order-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
  
     // Create the query and run it on the database
-    query1 = `INSERT INTO waste_orders( id, weight, material) VALUES ('${data['input-id']}', ${data['input-weight']}, ${data['input-material']})`;
+    query1 = `INSERT INTO waste_orders( dropoff_id2, weight, location_id2) VALUES ('${data['input-dropoff-id']}', '${data['input-weight']}', ${data['input-location-id']})`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -242,7 +243,7 @@ app.post('/add-waste-orders-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/salesOrders');
+            res.redirect('/wasteOrders');
         }
     })
 });
@@ -265,12 +266,34 @@ app.get('/wasteLocations', function(req, res)
         })
 });   
 
+//ADD WASTE LOCATION
+app.post('/add-waste-location-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+ 
+    // Create the query and run it on the database
+    query1 = `INSERT INTO waste_location( location_name, cost ) VALUES ('${data['input-name']}', '${data['input-cost']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/wasteLocations');
+        }
+    })
+});
 
 
-
-
-
-
+//DELETE FROM CUSTOMERS
 app.delete('/delete-person-ajax/', function(req,res,next){
     let data = req.body;
     let personID = parseInt(data.id);
