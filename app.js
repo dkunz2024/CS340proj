@@ -22,7 +22,7 @@ app.use(express.static('public'))
 
 // app.use(express.static(path.join(__dirname, 'public')));
 
-PORT        = 8990;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 8994;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
 var db = require('./database/db-connector');
@@ -37,6 +37,7 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
+
 app.get('/', function(req, res)
 {
     // Declare Query 1
@@ -44,10 +45,25 @@ app.get('/', function(req, res)
     query1 = `SELECT * FROM customers`;
 
     // If there is no query string, we just perform a basic SELECT
-    if (req.query.name != "")
+    if (req.query.name)
         query1 = `SELECT * FROM customers WHERE customer_name LIKE "${req.query.name}%"`;
-    else
-        query1 = `SELECT * FROM customers`;
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Run the second quer
+            res.render('about', {data: rows});
+        })
+});   
+
+app.get('/customers', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+    query1 = `SELECT * FROM customers`;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.name)
+        query1 = `SELECT * FROM customers WHERE customer_name LIKE "${req.query.name}%"`;
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
         
